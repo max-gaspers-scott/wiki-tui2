@@ -64,6 +64,9 @@ pub enum Data {
 
     Linebreak,
 
+    Image,
+    Figure,
+
     Link(Link),
     #[default]
     Unknown,

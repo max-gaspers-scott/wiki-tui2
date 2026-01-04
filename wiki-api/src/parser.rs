@@ -71,11 +71,13 @@ impl WikipediaParser {
                     }
                     "image" => {
                         ignore_children = true;
-                        Data::Unsupported(UnsupportedElement::Image)
+
+                        // Data::Unsupported(UnsupportedElement::Image)
+                        Data::Image
                     }
                     "figure" => {
                         ignore_children = true;
-                        Data::Unsupported(UnsupportedElement::Figure)
+                        Data::Figure
                     }
                     "pre" => {
                         ignore_children = true;

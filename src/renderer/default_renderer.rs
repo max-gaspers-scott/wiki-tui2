@@ -490,6 +490,30 @@ impl<'a> Renderer {
         }
     }
 
+    fn render_image(&mut self, node: Node<'a>) {
+        self.add_modifier(Modifier::ITALIC);
+
+        self.ensure_empty_line();
+        self.set_text_fg(Color::DarkGray);
+        self.render_string("[Image]", node.index());
+        self.reset_text_fg();
+
+        self.remove_modifier(Modifier::ITALIC);
+        self.ensure_empty_line();
+    }
+
+    fn render_figure(&mut self, node: Node<'a>) {
+        self.add_modifier(Modifier::ITALIC);
+
+        self.ensure_empty_line();
+        self.set_text_fg(Color::DarkGray);
+        self.render_string("[Figure]", node.index());
+        self.reset_text_fg();
+
+        self.remove_modifier(Modifier::ITALIC);
+        self.ensure_empty_line();
+    }
+
     fn render_wiki_link(&mut self, node: Node<'a>) {
         self.set_text_fg(Color::Blue);
         self.render_children(node);
@@ -591,6 +615,8 @@ impl<'a> Renderer {
             Data::Italic => self.render_italic(node),
             Data::Linebreak => self.render_linebreak(node),
             Data::Link(link) => self.render_link(node, link.clone()),
+            Data::Image => self.render_image(node),
+            Data::Figure => self.render_figure(node),
             Data::Unknown => self.render_children(node),
             Data::Unsupported(element) => {
                 self.render_unsupported_element(false, element, node.index())
